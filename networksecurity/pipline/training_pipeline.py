@@ -3,15 +3,18 @@ from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
 from networksecurity.components.data_ingestion import DataIngestion
 from networksecurity.components.data_validation import DataValidation
+from networksecurity.components.data_transformation import DataTransformation
 
-from networksecurity.entity.config_entity import (DataIngestionConfig, DataValidationConfig)
-from networksecurity.entity.artifact_entity import (DataIngestionArtifact, DataValidationArtifact)
+from networksecurity.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig)
+from networksecurity.entity.artifact_entity import (DataIngestionArtifact, DataValidationArtifact, DataTransformationArtifact)
+from networksecurity.utils.main_utils import *
 
 
 class TrainPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_validation_config = DataValidationConfig()
+        self.data_transformation_config = DataTransformationConfig()
 
 
 
@@ -57,6 +60,20 @@ class TrainPipeline:
         except Exception as e:
             raise NetworkSecurityException(e, sys) 
 
+
+    def start_data_transformation(self, data_ingestion_artifact: DataIngestionArtifact, data_validation_artifact: DataValidationArtifact) -> DataTransformationArtifact:
+        """
+        This method of TrainPipeline class is responsible for starting data transformation component
+        """
+        try:
+            data_transformation = DataTransformation(data_ingestion_artifact=data_ingestion_artifact,
+                                                     data_transformation_config=self.data_transformation_config,
+                                                     data_validation_artifact=data_validation_artifact)
+            data_transformation_artifact = data_transformation.initiate_data_transformation()
+            return data_transformation_artifact
+        except Exception as e:
+            raise NetworkSecurityException(e, sys)
+
     def run_pipeline(self, ) -> None:
             """
             This method of TrainPipeline class is responsible for running complete pipeline
@@ -64,6 +81,7 @@ class TrainPipeline:
             try:
                 data_ingestion_artifact = self.start_data_ingestion()
                 data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
+                data_transformation_artifact = self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact, data_validation_artifact=data_validation_artifact)
             except Exception as e:
                 raise NetworkSecurityException(e,sys)
 
