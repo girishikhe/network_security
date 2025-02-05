@@ -21,11 +21,14 @@ TRAIN_FILE_NAME: str = "train.csv"
 TEST_FILE_NAME: str = "test.csv"
 
 FILE_NAME: str = "Phishing_data.csv"
+MODEL_FILE_NAME: str = "model.pkl"
 
 
 TARGET_COLUMN = "Result"
 SCHEMA_FILE_PATH = os.path.join("config", "schema.yaml")
 PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
+
+SAVED_MODEL_DIR = os.path.join("saved_model")
 
 
 """
@@ -67,3 +70,22 @@ DATA_TRANSFORMATION_TRAIN_FILE_PATH: str = "train.npy"
 
 DATA_TRANSFORMATION_TEST_FILE_PATH: str = "test.npy"
 
+
+"""
+MODEL TRAINER related constant start with MODEL_TRAINER VAR NAME
+"""
+MODEL_TRAINER_DIR_NAME: str = "model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
+MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
+MODEL_TRAINER_EXPECTED_SCORE: float = 0.8
+MODEL_TRAINER_MODEL_CONFIG_FILE_PATH: str = os.path.join("config", "model.yaml")
+
+
+"""
+MODEL EVALUATION related constant 
+"""
+MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.07
+#MODEL_BUCKET_NAME = "deposit-model2024"
+#MODEL_PUSHER_S3_KEY = "model-registry"
+MODEL_EVALUATION_BEST_MODEL_DIR = "model_evaluation"
+MODEL_FILE_NAME = "best_model.pkl"

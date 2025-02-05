@@ -1,6 +1,7 @@
 
 import os
 import sys
+import joblib
 
 import numpy as np
 import dill
@@ -96,6 +97,12 @@ def save_object(file_path: str, obj: object) -> None:
 
     except Exception as e:
         raise NetworkSecurityException(e, sys) 
+
+
+def save_model(model, file_path):
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)  # Ensure directory exists
+    joblib.dump(model, file_path)  # Save model
+    logging.info(f"Model saved to {file_path}")
 
 
 
