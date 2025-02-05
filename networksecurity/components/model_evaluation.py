@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 from networksecurity.entity.config_entity import ModelEvaluationConfig
 from networksecurity.entity.artifact_entity import ModelTrainerArtifact, DataIngestionArtifact, ModelEvaluationArtifact
-from networksecurity.entity.estimator import NetworkModel,TargetValueMapping
+from networksecurity.entity.estimator import NetworkModel
 from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.constants import TARGET_COLUMN
 from networksecurity.logging.logger import logging
@@ -71,23 +71,22 @@ class ModelEvaluation:
         try:
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             x, y = test_df.drop(TARGET_COLUMN, axis=1), test_df[TARGET_COLUMN]
-            y = y.replace(TargetValueMapping()._asdict())
+            #y = y.replace(TargetValueMapping()._asdict())
             y = y.map({1: 1, -1: 0})
 
             trained_model = load_object(self.model_trainer_artifact.trained_model_file_path)
             y_hat_trained_model = trained_model.predict(x)
-            trained_model_f1_score = f1_score(y, y_hat_trained_model, average='weighted')
-
+            trained_model_f1_score = f1_score(y, y_hat_trained_model)
             best_model_f1_score = None
             best_model = self.get_best_model()
             
             if best_model is not None:
                 y_hat_best_model = best_model.predict(x)
-                best_model_f1_score = f1_score(y, y_hat_best_model, average='weighted')
+                best_model_f1_score = f1_score(y, y_hat_best_model, )
 
             metric_artifact = ClassificationMetricArtifact(
                 f1_score=trained_model_f1_score,
-                precision_score=precision_score(y, y_hat_trained_model, ),
+                precision_score=precision_score(y, y_hat_trained_model ),
                 recall_score=recall_score(y, y_hat_trained_model)
             )
             track_mlflow(trained_model, metric_artifact)

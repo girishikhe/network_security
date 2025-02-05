@@ -6,20 +6,6 @@ from sklearn.pipeline import Pipeline
 from pandas import DataFrame
 from dataclasses import dataclass
 
-
-@dataclass
-class TargetValueMapping:
-    Certified: int = 1
-    Denied: int = -1
-
-    def _asdict(self):
-        return {
-            "Certified": self.Certified,
-            "Denied": self.Denied
-        }
-
-    def reverse_mapping(self):
-        return {v: k for k, v in self._asdict().items()}
     
 
 class NetworkModel:
