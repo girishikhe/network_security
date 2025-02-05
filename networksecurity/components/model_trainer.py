@@ -28,6 +28,8 @@ class ModelTrainer:
         self.data_transformation_artifact = data_transformation_artifact
         self.model_trainer_config = model_trainer_config
 
+
+
     def train_and_evaluate_model(self, model, x_train: np.array, y_train: np.array, x_test: np.array, y_test: np.array) -> Tuple[object, ClassificationMetricArtifact]:
         """
         Train a model and evaluate its performance on the test set.

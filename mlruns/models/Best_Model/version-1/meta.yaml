@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1738750887635
+current_stage: None
+description: null
+last_updated_timestamp: 1738750887635
+name: Best_Model
+run_id: 23af7d61132e44baad501c7e10a5b095
+run_link: null
+source: file:///J:/network_security/mlruns/0/23af7d61132e44baad501c7e10a5b095/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///J:/network_security/mlruns/0/23af7d61132e44baad501c7e10a5b095/artifacts/model
+user_id: null
+version: 1

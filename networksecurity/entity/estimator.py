@@ -4,17 +4,22 @@ from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
 from sklearn.pipeline import Pipeline
 from pandas import DataFrame
+from dataclasses import dataclass
 
 
+@dataclass
 class TargetValueMapping:
-    def __init__(self):
-        self.Certified:int = 1
-        self.Denied:int = -1
+    Certified: int = 1
+    Denied: int = -1
+
     def _asdict(self):
-        return self.__dict__
+        return {
+            "Certified": self.Certified,
+            "Denied": self.Denied
+        }
+
     def reverse_mapping(self):
-        mapping_response = self._asdict()
-        return dict(zip(mapping_response.values(),mapping_response.keys()))
+        return {v: k for k, v in self._asdict().items()}
     
 
 class NetworkModel:
