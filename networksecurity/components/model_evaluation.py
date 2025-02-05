@@ -15,6 +15,10 @@ from networksecurity.constants import TARGET_COLUMN
 from networksecurity.logging.logger import logging
 from networksecurity.utils.main_utils import load_object
 
+import dagshub
+dagshub.init(repo_owner='girishikhe', repo_name='network_security', mlflow=True)
+
+
 @dataclass
 class EvaluateModelResponse:
     trained_model_f1_score: float
