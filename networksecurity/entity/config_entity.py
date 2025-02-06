@@ -71,3 +71,17 @@ class ModelEvaluationConfig:
     best_model_path: str = os.path.join(training_pipeline_config.artifact_dir, MODEL_EVALUATION_BEST_MODEL_DIR, MODEL_FILE_NAME)
     #bucket_name: str = MODEL_BUCKET_NAME
     #s3_model_key_path: str = MODEL_FILE_NAME
+
+
+@dataclass
+class ModelPusherConfig:
+    bucket_name: str = MODEL_BUCKET_NAME
+    s3_model_key_path: str = MODEL_FILE_NAME
+
+
+
+
+@dataclass
+class NetworkPredictorConfig:
+    model_file_path: str = MODEL_FILE_NAME
+    model_bucket_name: str = MODEL_BUCKET_NAME
